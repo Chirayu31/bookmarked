@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import dotenv from 'dotenv';
 import connectDB from './utils/dbConfig';
-import { authRoutes, categoryRoutes } from './routes';
+import { authRoutes, bookmarkRoutes, categoryRoutes } from './routes';
 import verifyUser from './middleware/verifyUser';
 
 const app = express();
@@ -19,6 +19,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/auth', authRoutes)
 app.use('/category', verifyUser, categoryRoutes)
+app.use('/bookmark', verifyUser, bookmarkRoutes)
 
 app.listen(port, () => {
     console.log(`Server is running on ${port}`)
