@@ -1,5 +1,10 @@
 import mongoose from 'mongoose'
-import { IUser } from '../types/user'
+
+interface IUser {
+    username: string,
+    email: string,
+    password: string
+}
 
 const userSchema = new mongoose.Schema<IUser>({
     username: { type: String, required: true, unique: true },
