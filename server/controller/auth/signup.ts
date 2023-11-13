@@ -44,7 +44,7 @@ export default async function signup(req: Request, res: Response) {
             expiresIn: "365d",
         });
 
-        res.json({ token });
+        res.json({ token, username, email });
 
     } catch (error) {
         console.error("Error in signup:", error);

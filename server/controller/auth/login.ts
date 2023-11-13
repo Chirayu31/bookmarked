@@ -32,7 +32,7 @@ export default async function login(req: Request, res: Response) {
 
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "365d" })
 
-        return res.json({ token })
+        return res.json({ token, username: user.username, email: user.email })
     } catch (error) {
         console.error("Error in signup:", error);
         res.status(500).json({ message: "Internal Server Error" });
