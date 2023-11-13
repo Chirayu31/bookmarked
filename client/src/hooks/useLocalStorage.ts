@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
-const useLocalStorage = <T>(storageKey: string, fallbackState: T) => {
+const useLocalStorage = <T>(storageKey: string, fallbackState: T): [T, Dispatch<SetStateAction<T>>] => {
 
     const [value, setValue] = React.useState<T>(() => {
         const storedValue = localStorage.getItem(storageKey);
