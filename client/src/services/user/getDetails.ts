@@ -6,6 +6,6 @@ export default async function userDetails(token: string) {
         'Authorization': `Bearer ${token}`,
     };
     const { data } = await axios.get(`http://localhost:3000/user`, { headers: headers })
-    console.log(data)
+    // console.log(data)
     return data
 }

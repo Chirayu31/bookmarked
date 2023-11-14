@@ -5,11 +5,13 @@ import { useSetRecoilState } from "recoil";
 import userState from "./atoms/UserAtom";
 import userDetails from "./services/user/getDetails";
 import { useEffect } from "react";
+import NavBar from "./components/NavBar";
+import { ThemeProvider } from "./components/theme-provider";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <NavBar />,
   },
   {
     path: '/auth',
@@ -41,7 +43,9 @@ function App() {
   }, [isLoggedIn, token, setUser]);
 
   return (
-    <RouterProvider router={router} />
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <RouterProvider router={router} />
+    </ThemeProvider>
   )
 }
 
