@@ -7,6 +7,8 @@ import userDetails from "./services/user/getDetails";
 import { useEffect } from "react";
 import NavBar from "./components/NavBar";
 import { ThemeProvider } from "./components/theme-provider";
+import Dashboard from "./pages/dashboard";
+import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,13 @@ const router = createBrowserRouter([
   {
     path: '/auth',
     element: <Auth />
+  },
+  {
+    path: '/dashboard',
+    element: <>
+      <NavBar />
+      <Dashboard />
+    </>
   }
 ]);
 
@@ -44,6 +53,7 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <Toaster />
       <RouterProvider router={router} />
     </ThemeProvider>
   )
