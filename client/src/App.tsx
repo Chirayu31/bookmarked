@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar";
 import { ThemeProvider } from "./components/theme-provider";
 import Dashboard from "./pages/dashboard";
 import { Toaster } from "./components/ui/toaster";
+import Category from "./pages/category";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,13 @@ const router = createBrowserRouter([
     element: <>
       <NavBar />
       <Dashboard />
+    </>
+  },
+  {
+    path: '/category/:id',
+    element: <>
+      <NavBar />
+      <Category />
     </>
   }
 ]);
