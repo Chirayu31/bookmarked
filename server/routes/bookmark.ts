@@ -6,7 +6,7 @@ import deleteBookmarkController from '../controller/bookmark/deleteBookmark'
 
 const router = express.Router()
 
-router.get('/', getBookmarksController)
+router.get('/:categoryId', getBookmarksController)
 router.post('/', addBookmarkController)
 router.put('/:id', editBookmarkController)
 router.delete('/:id', deleteBookmarkController)

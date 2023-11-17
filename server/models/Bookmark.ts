@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 interface Bookmark {
+    title: string;
     userId: mongoose.Types.ObjectId;
     categoryId: mongoose.Types.ObjectId;
     url: string;
@@ -8,6 +9,9 @@ interface Bookmark {
 
 const bookmarkSchema = new mongoose.Schema<Bookmark>(
     {
+        title: {
+            type: String, required: true
+        },
         userId: {
             type: mongoose.SchemaTypes.ObjectId,
             required: true,

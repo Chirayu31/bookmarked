@@ -7,6 +7,7 @@ const bookmarkSchema = z.object({
     userId: z.string(),
     categoryId: z.string(),
     url: z.string().url(),
+    title: z.string()
 });
 
 export default async function addBookmarkController(req: Request, res: Response) {
@@ -18,12 +19,12 @@ export default async function addBookmarkController(req: Request, res: Response)
             return res.status(400).json({ message: 'Invalid data', errors: result.error.errors });
         }
 
-        const { userId, categoryId, url } = result.data;
+        const { userId, categoryId, url, title } = result.data;
 
         if (!mongoose.isValidObjectId(userId) || !mongoose.isValidObjectId(categoryId))
             return res.status(400).json({ message: "Invalid category/user id" })
 
-        const newBookmark = new Bookmark({ userId, categoryId, url });
+        const newBookmark = new Bookmark({ userId, categoryId, url, title });
         await newBookmark.save();
 
         return res.status(201).json({ message: 'Bookmark added successfully', bookmark: newBookmark });
