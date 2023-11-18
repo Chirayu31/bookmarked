@@ -1,8 +1,11 @@
 import categoriesState from "@/atoms/CategoryAtom"
 import AddCategory from "@/components/category/AddCategory"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
+import { useToast } from "@/components/ui/use-toast"
 import useLocalStorage from "@/hooks/useLocalStorage"
 import fetchUserCategories from "@/services/category/fetchUserCategories"
+import removeCategory from "@/services/category/removeCategory"
+import { TrashIcon } from "@radix-ui/react-icons"
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useRecoilValue, useSetRecoilState } from "recoil"
@@ -11,6 +14,7 @@ const Dashboard = () => {
     const [token, setToken] = useLocalStorage('token', '')
     const categories = useRecoilValue(categoriesState)
     const setCategories = useSetRecoilState(categoriesState)
+    const { toast } = useToast()
 
     useEffect(() => {
         async function fetch() {
@@ -19,6 +23,29 @@ const Dashboard = () => {
         }
         fetch()
     }, [])
+
+    const trimText = (text: string, maxLength: number) => {
+        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    };
+
+    const handleRemoveCategory = async (id: string) => {
+        try {
+            const removeData = await removeCategory(id, token);
+            // console.log(removeData);
+
+            const newData = categories.filter((category) => category._id != id)
+
+            setCategories(newData)
+
+            toast({
+                title: removeData.message
+            })
+
+        } catch (error) {
+            console.log(error)
+            toast({ title: 'Error Occured', variant: 'destructive' })
+        }
+    }
 
     return (
         <>
@@ -35,12 +62,16 @@ const Dashboard = () => {
 
                 {categories && categories.map((category: { _id: string, title: string }) => (
 
-                    <Card key={category._id} className="dark:bg-black dark:hover:bg-gray-950 cursor-pointer	">
+                    <Card key={category._id} className="dark:bg-black dark:hover:bg-gray-950 cursor-pointer	flex items-center justify-between sm:px-10 px-4">
                         <Link to={`/category/${category._id}`}>
                             <CardHeader className="flex flex-row justify-between items-center">
-                                <CardTitle>{category.title}</CardTitle>
+                                <CardTitle className="sm:hidden">{trimText(category.title, 10)}</CardTitle>
+                                <CardTitle className="max-sm:hidden">{trimText(category.title, 15)}</CardTitle>
                             </CardHeader>
                         </Link>
+
+                        <TrashIcon className='text-red-400' onClick={() => { handleRemoveCategory(category._id) }} />
+
                     </Card>
 
                 ))}

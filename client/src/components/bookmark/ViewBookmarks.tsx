@@ -77,7 +77,7 @@ const ViewBookmarks: FC<IviewBookMarks> = ({ id }): JSX.Element => {
                                 </TableHead>
                                 <TableHead className="w-1/2 max-w-[200px]">
                                     <a href={bookmark.url} target="_blank">
-                                        {trimText(bookmark.url, 30)}
+                                        {trimText(bookmark.url, 20)}
                                     </a>
                                 </TableHead>
                                 <TableHead>

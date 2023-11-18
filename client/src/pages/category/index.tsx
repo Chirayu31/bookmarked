@@ -5,34 +5,46 @@ import getCategoryById from "@/services/category/getCategoryById";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+interface ICategory {
+  _id: string;
+  title: string;
+}
+
 const Category = () => {
   const { id } = useParams();
-  const [categoryTitle, setCategoryTitle] = useState('');
+  const [category, setCategory] = useState<ICategory | null>(null);
   const [token, setToken] = useLocalStorage('token', '')
 
   useEffect(() => {
     async function categoryConfirm() {
       if (!id) return;
       const category = await getCategoryById(token, id);
-      setCategoryTitle(category.title)
+      setCategory(category)
     }
 
     categoryConfirm()
   }, []);
 
-  if (!id || !categoryTitle) {
+  if (!id || !category) {
     return (<>
       <p className="text-center mt-10 text-xl text-red-500">Invalid Category Id</p>
     </>);
   }
 
-
   return (
-    <div className="flex flex-col items-center mt-10 justify-center">
-      <AddBookmark id={id} />
-      <ViewBookmarks id={id} />
+    <>
+      <div className="flex mx-10 gap-4 mt-4 justify-around">
 
-    </div>
+        <h2 className="text-white text-xl sm:text-2xl">{category.title}</h2>
+
+        <AddBookmark id={id} />
+      </div>
+
+
+      <div className="flex flex-col items-center mt-10 justify-center">
+        <ViewBookmarks id={id} />
+      </div>
+    </>
   )
 }
 
