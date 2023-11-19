@@ -7,6 +7,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { useToast } from "../ui/use-toast";
 import BookmarkAtom from "@/atoms/BookmarkAtom";
 import { useSetRecoilState } from "recoil";
+import { CardStackPlusIcon, PlusCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 
 interface IBookMarksProps { id: string }
 
@@ -49,10 +50,8 @@ const AddBookmark: FC<IBookMarksProps> = ({ id }) => {
     return (
         <Dialog>
             <DialogTrigger>
-                <div
-                    className="text-gray-300 border-gray-300 hover:text-white hover:border-white rounded border-[1.8px] p-2 px-4 text-sm sm:text-base"
-                >
-                    New Bookmark
+                <div>
+                    <PlusIcon className="h-8 w-8 text-white" />
                 </div>
             </DialogTrigger>
             <DialogContent>

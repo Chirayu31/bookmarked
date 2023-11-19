@@ -1,5 +1,6 @@
 import AddBookmark from "@/components/bookmark/AddBookmark";
 import ViewBookmarks from "@/components/bookmark/ViewBookmarks";
+import EditCategory from "@/components/category/EditCategory";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import getCategoryById from "@/services/category/getCategoryById";
 import { useEffect, useState } from "react";
@@ -41,8 +42,11 @@ const Category = () => {
   return (
     <>
       <div className="flex mx-10 gap-4 mt-4 justify-around">
+        <div className="flex gap-4">
+          <h2 className="text-white text-xl sm:text-2xl">{category.title}</h2>
 
-        <h2 className="text-white text-xl sm:text-2xl">{category.title}</h2>
+          <EditCategory id={id} setCategory={setCategory} />
+        </div>
 
         <AddBookmark id={id} />
       </div>
