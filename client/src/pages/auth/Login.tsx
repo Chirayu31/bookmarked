@@ -15,6 +15,11 @@ const initialState = {
 
 const Login = () => {
     const [formData, setFormData] = useState(initialState)
+    const [errors, setErrors] = useState({
+        username: '',
+        password: '',
+        message: ''
+    });
     const [token, setToken] = useLocalStorage('token', '')
     const setUser = useSetRecoilState(userState)
     const navigate = useNavigate();
@@ -25,17 +30,45 @@ const Login = () => {
             ...formData,
             [e.target.name]: e.target.value
         })
+
+        setErrors({
+            username: '',
+            password: '',
+            message: ''
+        })
     }
 
     const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        const formErrors = {
+            username: formData.username.trim() === '' ? 'This field is required' : '',
+            password: formData.password.trim() === '' ? 'This field is required' : '',
+            message: ''
+        };
+
+        setErrors(formErrors);
+
+        if (Object.values(formErrors).some((error) => error !== '')) {
+            return;
+        }
+
         try {
             const data = await userLogin(formData)
             setFormData(initialState)
             setToken(data.token)
             setUser(data)
-        } catch (error) {
-            console.error(error)
+        } catch (error: any) {
+            if (error.response && error.response.status !== 500) {
+                const serverErrors = error.response.data;
+                setErrors({
+                    username: '',
+                    password: '',
+                    message: serverErrors.message
+                });
+            } else {
+                console.error(error);
+            }
         }
     }
 
@@ -55,20 +88,23 @@ const Login = () => {
             </CardHeader>
             <CardContent >
                 <form className="grid gap-4" onSubmit={handleFormSubmit}>
+                    {errors.message && <span className="text-red-500 text-sm">{errors.message}</span>}
+
+                    <span className="text-red-500 text-sm">{errors.username}</span>
+
                     <Input
                         type="text"
                         onChange={onChangeHandler}
                         value={formData.username}
                         name="username"
-                        required
                         placeholder="Enter your username" />
 
+                    <span className="text-red-500 text-sm">{errors.password}</span>
                     <Input
                         type="password"
                         onChange={onChangeHandler}
                         value={formData.password}
                         name="password"
-                        required
                         placeholder="Enter your password" />
                     <Button type="submit">Login </Button>
                 </form>
