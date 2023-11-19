@@ -25,13 +25,6 @@ const NavBar = () => {
                                     Dashboard
                                 </Button>
                             </Link>
-                            <Link to={`/dashboard`}>
-                                <Button
-                                    className='text-xs font-[Outfit] md:text-base '
-                                    variant="link">
-                                    Recents
-                                </Button>
-                            </Link>
                             <div>
                                 <Link to={`/account`}>
                                     <Avatar>

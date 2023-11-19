@@ -4,7 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import useLocalStorage from "@/hooks/useLocalStorage"
 import userSignup from "@/services/auth/signup"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { useSetRecoilState } from "recoil"
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
 const Signup = () => {
     const [token, setToken] = useLocalStorage('token', '');
     const setUser = useSetRecoilState(userState);
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState(initialState);
 
@@ -38,6 +40,13 @@ const Signup = () => {
             [e.target.name]: e.target.value,
         });
     };
+
+
+    useEffect(() => {
+        if (token) {
+            navigate('/dashboard')
+        }
+    }, [token])
 
     return (
         <Card>

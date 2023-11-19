@@ -4,7 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import useLocalStorage from "@/hooks/useLocalStorage"
 import userLogin from "@/services/auth/login"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { useSetRecoilState } from "recoil"
 
 const initialState = {
@@ -16,6 +17,7 @@ const Login = () => {
     const [formData, setFormData] = useState(initialState)
     const [token, setToken] = useLocalStorage('token', '')
     const setUser = useSetRecoilState(userState)
+    const navigate = useNavigate();
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
@@ -27,7 +29,6 @@ const Login = () => {
 
     const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-
         try {
             const data = await userLogin(formData)
             setFormData(initialState)
@@ -38,6 +39,11 @@ const Login = () => {
         }
     }
 
+    useEffect(() => {
+        if (token) {
+            navigate('/dashboard')
+        }
+    }, [token])
 
     return (
         <Card>

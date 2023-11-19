@@ -3,7 +3,7 @@ import ViewBookmarks from "@/components/bookmark/ViewBookmarks";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import getCategoryById from "@/services/category/getCategoryById";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface ICategory {
   _id: string;
@@ -14,6 +14,13 @@ const Category = () => {
   const { id } = useParams();
   const [category, setCategory] = useState<ICategory | null>(null);
   const [token, setToken] = useLocalStorage('token', '')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/auth')
+    }
+  }, [token])
 
   useEffect(() => {
     async function categoryConfirm() {
@@ -21,8 +28,8 @@ const Category = () => {
       const category = await getCategoryById(token, id);
       setCategory(category)
     }
-
-    categoryConfirm()
+    if (token)
+      categoryConfirm()
   }, []);
 
   if (!id || !category) {

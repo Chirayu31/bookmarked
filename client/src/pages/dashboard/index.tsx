@@ -7,21 +7,29 @@ import fetchUserCategories from "@/services/category/fetchUserCategories"
 import removeCategory from "@/services/category/removeCategory"
 import { TrashIcon } from "@radix-ui/react-icons"
 import { useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 
 const Dashboard = () => {
     const [token, setToken] = useLocalStorage('token', '')
     const categories = useRecoilValue(categoriesState)
     const setCategories = useSetRecoilState(categoriesState)
+    const navigate = useNavigate()
     const { toast } = useToast()
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/auth')
+        }
+    }, [token])
 
     useEffect(() => {
         async function fetch() {
             const data = await fetchUserCategories(token)
             setCategories(data)
         }
-        fetch()
+        if (token)
+            fetch()
     }, [])
 
     const trimText = (text: string, maxLength: number) => {

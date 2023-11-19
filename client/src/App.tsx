@@ -10,6 +10,7 @@ import { ThemeProvider } from "./components/theme-provider";
 import Dashboard from "./pages/dashboard";
 import { Toaster } from "./components/ui/toaster";
 import Category from "./pages/category";
+import Account from "./pages/user";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,12 @@ const router = createBrowserRouter([
     element: <>
       <NavBar />
       <Category />
+    </>
+  }, {
+    path: '/account',
+    element: <>
+      <NavBar />
+      <Account />
     </>
   }
 ]);
