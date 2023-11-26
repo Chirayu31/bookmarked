@@ -6,7 +6,7 @@ export default async function editCategory(token: string, updateData: { title: s
         'Authorization': `Bearer ${token}`,
     };
 
-    const { data } = await axios.put(`http://localhost:3000/category/${updateData.id}`, { title: updateData.title }, { headers })
+    const { data } = await axios.put(`${import.meta.env.VITE_API_URL}/category/${updateData.id}`, { title: updateData.title }, { headers })
 
     return data
 }

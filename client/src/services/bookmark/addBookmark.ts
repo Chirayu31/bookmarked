@@ -7,7 +7,7 @@ export async function addBookmark(postData: { title: string, url: string, catego
         'Authorization': `Bearer ${token}`,
     };
 
-    const { data } = await axios.post('http://localhost:3000/bookmark/', { ...postData }, { headers: headers })
+    const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/bookmark/`, { ...postData }, { headers: headers })
 
     return data
 }

@@ -5,6 +5,6 @@ export default async function getCategoryById(token: string, categoryId: string)
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
     };
-    const { data } = await axios.get(`http://localhost:3000/category/${categoryId}`, { headers: headers })
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/category/${categoryId}`, { headers: headers })
     return data.category
 }

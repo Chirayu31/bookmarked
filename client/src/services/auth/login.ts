@@ -6,7 +6,7 @@ interface Iuser {
 }
 
 export default async function userLogin(formData: Iuser) {
-    const { data } = await axios.post(`http://localhost:3000/auth/login`, formData)
+    const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, formData)
     // console.log(data)
     return data
 }

@@ -5,7 +5,7 @@ export async function getBookmarks(categoryId: string, token: string) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
     };
-    const { data } = await axios.get(`http://localhost:3000/bookmark/${categoryId}`, { headers })
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/bookmark/${categoryId}`, { headers })
 
     return data
 }
