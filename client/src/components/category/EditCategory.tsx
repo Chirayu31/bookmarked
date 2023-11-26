@@ -17,7 +17,7 @@ interface IBookMarksProps {
 
 const EditCategory: FC<IBookMarksProps> = ({ id, setCategory }) => {
     const [categoryName, setCategoryName] = useState('')
-    const [token, setToken] = useLocalStorage('token', '')
+    const [token, _] = useLocalStorage('token', '')
 
     const handleFormSubmit = async () => {
         try {

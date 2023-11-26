@@ -7,7 +7,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { useToast } from "../ui/use-toast";
 import BookmarkAtom from "@/atoms/BookmarkAtom";
 import { useSetRecoilState } from "recoil";
-import { CardStackPlusIcon, PlusCircledIcon, PlusIcon } from "@radix-ui/react-icons";
+import { PlusIcon } from "@radix-ui/react-icons";
 
 interface IBookMarksProps { id: string }
 
@@ -15,7 +15,7 @@ const AddBookmark: FC<IBookMarksProps> = ({ id }) => {
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
     const setBookmarks = useSetRecoilState(BookmarkAtom)
-    const [token, setToken] = useLocalStorage('token', '')
+    const [token, _] = useLocalStorage('token', '')
     const { toast } = useToast()
 
     const handleFormSubmit = async () => {

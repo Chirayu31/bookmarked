@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 
 const Dashboard = () => {
-    const [token, setToken] = useLocalStorage('token', '')
+    const [token, _] = useLocalStorage('token', '')
     const categories = useRecoilValue(categoriesState)
     const setCategories = useSetRecoilState(categoriesState)
     const navigate = useNavigate()

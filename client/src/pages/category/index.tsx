@@ -14,7 +14,7 @@ interface ICategory {
 const Category = () => {
   const { id } = useParams();
   const [category, setCategory] = useState<ICategory | null>(null);
-  const [token, setToken] = useLocalStorage('token', '')
+  const [token, _] = useLocalStorage('token', '')
   const navigate = useNavigate()
 
   useEffect(() => {

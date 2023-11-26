@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil"
 
 const Account = () => {
     const [user, setUser] = useRecoilState(userState);
-    const [token, setToken] = useLocalStorage('token', '')
+    const [token, _] = useLocalStorage('token', '')
     const navigate = useNavigate();
 
     useEffect(() => {

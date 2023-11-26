@@ -11,7 +11,7 @@ import removeBookmark from "@/services/bookmark/removeBookmark";
 interface IviewBookMarks { id: string }
 
 const ViewBookmarks: FC<IviewBookMarks> = ({ id }): JSX.Element => {
-    const [token, setToken] = useLocalStorage('token', '')
+    const [token, _] = useLocalStorage('token', '')
     const [bookmarks, setBookmarks] = useRecoilState(BookmarkAtom)
 
     const { toast } = useToast()
@@ -34,7 +34,7 @@ const ViewBookmarks: FC<IviewBookMarks> = ({ id }): JSX.Element => {
 
     const removeBookmarkHandler = async (id: string) => {
         try {
-            const data = await removeBookmark(id, token);
+            await removeBookmark(id, token);
             // console.log(data)
 
             setBookmarks((prevBookmarks) => ({

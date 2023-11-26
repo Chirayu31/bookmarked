@@ -44,7 +44,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [token, setToken] = useLocalStorage('token', '')
+  const [token, _] = useLocalStorage('token', '')
   const setUser = useSetRecoilState(userState)
 
   const isLoggedIn = !!token;

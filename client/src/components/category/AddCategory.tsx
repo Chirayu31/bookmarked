@@ -11,12 +11,12 @@ import { useToast } from "../ui/use-toast"
 
 const AddCategory = () => {
     const [title, setTitle] = useState('')
-    const [token, setToken] = useLocalStorage('token', '')
+    const [token, _] = useLocalStorage('token', '')
     const setCategories = useSetRecoilState(categoriesState)
     const { toast } = useToast()
 
     const handleFormSubmit = async (e: React.MouseEvent<HTMLElement>) => {
-
+        e.preventDefault()
         try {
             const newCategory = await addCategory(title, token)
 
