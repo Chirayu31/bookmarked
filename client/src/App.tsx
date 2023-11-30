@@ -11,11 +11,15 @@ import Dashboard from "./pages/dashboard";
 import { Toaster } from "./components/ui/toaster";
 import Category from "./pages/category";
 import Account from "./pages/user";
+import Home from "./pages/home";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <NavBar />,
+    element: <>
+      <NavBar />
+      <Home />
+    </>,
   },
   {
     path: '/auth',
